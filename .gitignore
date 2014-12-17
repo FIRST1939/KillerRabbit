@@ -8,3 +8,5 @@
 *.txt~
 
 *.java~
+/KillerRabbit/build/
+private.xml
