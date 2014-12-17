@@ -27,13 +27,20 @@ public class  DriveWithJoystick extends Command {
     }
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        double x = Robot.oi.leftStick.getX();
+        double y = Robot.oi.leftStick.getY();
+        double z = Robot.oi.rightStick.getX();
+        if(Math.abs(x)<0.02) x = 0;
+        if(Math.abs(y)<0.02) y = 0;
+        if(Math.abs(z)<0.02) z = 0;
+        
         double multiplier = 0.0;
         if(Robot.oi.turboButton.get()){
             multiplier = 0.3;
         }else{
             multiplier = 1.0;
         }
-        Robot.drivetrain.drive(Robot.oi.rightStick.getX(), Robot.oi.leftStick.getY(), Robot.oi.leftStick.getX(), multiplier);
+        Robot.drivetrain.drive(x,y, z, multiplier);
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
