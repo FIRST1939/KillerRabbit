@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
     
-    public static final double spinDelay = 0.75;
+    public static final double spinDelay = 3;
     
-    private static final double forwardSpeed = -0.5;
-    private static final double backSpeed = -0.5;
+    private static final double forwardSpeed = -1;
+    private static final double backSpeed = -1;
     
     private boolean spinning;
     private boolean forward;
