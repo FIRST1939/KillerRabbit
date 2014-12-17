@@ -36,7 +36,7 @@ public class Shoot extends CommandGroup {
         // arm.
         this.addSequential(new SpinWheels());
         this.addSequential(new PistonForward());
-        this.addSequential(new Wait(0.75));
+        this.addSequential(new Wait(0.33));
         this.addSequential(new PistonBack());
     }
 }

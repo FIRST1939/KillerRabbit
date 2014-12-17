@@ -18,8 +18,8 @@ public class Shooter extends Subsystem {
     
     public static final double spinDelay = 3;
     
-    private static final double forwardSpeed = -1;
-    private static final double backSpeed = -1;
+    private static final double forwardSpeed = -0.9;
+    private static final double backSpeed = -0.7;
     
     private boolean spinning;
     private boolean forward;
