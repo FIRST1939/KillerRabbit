@@ -342,6 +342,30 @@ Children:
           value: whenPressed
       Base: Joystick Button
       Name: ShootButton
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: LeftStick}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id014
+          default: '1'
+          name: Button
+          validators: null
+          value: '9'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id015
+          value: ToggleWheels
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id016
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
+      Base: Joystick Button
+      Name: ToggleWheelsButton
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: &id017 ['1', '2', '3', '4']
@@ -459,6 +483,14 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: ToggleEars
+  - Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: ToggleWheels
   Properties: {}
   Base: Commands
   Name: Commands
