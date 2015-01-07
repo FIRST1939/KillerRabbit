@@ -11,6 +11,7 @@ package org.usfirst.frc1939.KillerRabbit;
     
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -28,6 +29,7 @@ public class RobotMap {
     public static SpeedController drivetrainBackLeft;
     public static SpeedController drivetrainBackRight;
     public static RobotDrive drivetrainRobotDrive;
+    public static Gyro drivetrainGyro;
     public static SpeedController shooterFront;
     public static SpeedController shooterBack;
     public static DoubleSolenoid shooterPiston;
@@ -57,6 +59,9 @@ public class RobotMap {
         drivetrainRobotDrive.setMaxOutput(1.0);
         drivetrainRobotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         drivetrainRobotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        drivetrainGyro = new Gyro(1, 1);
+	LiveWindow.addSensor("Drivetrain", "Gyro", drivetrainGyro);
+        drivetrainGyro.setSensitivity(0.007);
         shooterFront = new Talon(1, 5);
 	LiveWindow.addActuator("Shooter", "Front", (Talon) shooterFront);
         

@@ -10,11 +10,12 @@
 package org.usfirst.frc1939.KillerRabbit.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc1939.KillerRabbit.Robot;
+import org.usfirst.frc1939.KillerRabbit.RobotMap;
 /**
  *
  */
-public class  DriveWithJoystick extends Command {
-    public DriveWithJoystick() {
+public class  DriveForward extends Command {
+    public DriveForward() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 	
@@ -24,23 +25,11 @@ public class  DriveWithJoystick extends Command {
     }
     // Called just before this Command runs the first time
     protected void initialize() {
+        RobotMap.drivetrainGyro.reset();
     }
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        double x = Robot.oi.leftStick.getX();
-        double y = Robot.oi.leftStick.getY();
-        double z = Robot.oi.rightStick.getX();
-        if(Math.abs(x)<0.02) x = 0;
-        if(Math.abs(y)<0.02) y = 0;
-        if(Math.abs(z)<0.02) z = 0;
-        
-        double multiplier = 0.0;
-        if(Robot.oi.turboButton.get()){
-            multiplier = 0.3;
-        }else{
-            multiplier = 1.0;
-        }
-        Robot.drivetrain.drive(x,y, z, multiplier, 0);
+        Robot.drivetrain.drive(0, 0.5, 0, 1, RobotMap.drivetrainGyro.getAngle());
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

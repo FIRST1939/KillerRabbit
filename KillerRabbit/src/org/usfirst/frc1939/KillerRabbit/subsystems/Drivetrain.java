@@ -35,7 +35,7 @@ public class Drivetrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void drive(double x, double y, double z, double multiplier){
-        robotDrive.mecanumDrive_Cartesian(x*multiplier, y*multiplier, z*multiplier, 0);
+    public void drive(double x, double y, double z, double multiplier, double gyro){
+        robotDrive.mecanumDrive_Cartesian(x*multiplier, y*multiplier, z*multiplier, gyro);
     }
 }
