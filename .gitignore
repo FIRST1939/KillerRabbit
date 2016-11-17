@@ -1,12 +1,8 @@
+.DS_Store
 
-*.properties~
+.settings/
 
-*.xml~
+*.class
 
-*.MF~
+bin/
 
-*.txt~
-
-*.java~
-/KillerRabbit/build/
-private.xml
