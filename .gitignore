@@ -1,12 +1,10 @@
+.DS_Store
+.settings/
+*.class
+bin/
+*.jar
+sysProps.xml
 
-*.properties~
-
-*.xml~
-
-*.MF~
-
-*.txt~
-
-*.java~
-/KillerRabbit/build/
-private.xml
+# ignore Sublime Text config files
+*.sublime-project
+*.sublime-workspace
