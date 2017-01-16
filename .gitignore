@@ -3,6 +3,7 @@
 *.class
 bin/
 *.jar
+sysProps.xml
 
 # ignore Sublime Text config files
 *.sublime-project
