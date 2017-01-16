@@ -15,7 +15,7 @@ public class OI {
 	public final Joystick right = new Joystick(1);
 
 	{
-		JoystickButton shoot = new JoystickButton(left, 0);
+		JoystickButton shoot = new JoystickButton(left, 1);
 		shoot.whenPressed(new Shoot());
 		
 		JoystickButton push = new JoystickButton(left, 3);
