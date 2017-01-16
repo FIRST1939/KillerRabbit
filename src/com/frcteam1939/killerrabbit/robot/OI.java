@@ -1,5 +1,7 @@
 package com.frcteam1939.killerrabbit.robot;
 
+import com.frcteam1939.killerrabbit.robot.commands.ears.EarsDown;
+import com.frcteam1939.killerrabbit.robot.commands.ears.EarsUp;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.PushFrisbee;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.RetractFrisbee;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.Shoot;
@@ -13,24 +15,23 @@ public class OI {
 
 	public final Joystick left = new Joystick(0);
 	public final Joystick right = new Joystick(1);
-
+	
 	{
+		JoystickButton up = new JoystickButton(left, 11);
+		up.whenPressed(new EarsUp());
+		JoystickButton down = new JoystickButton(left, 10);
+		down.whenPressed(new EarsDown());
+
 		JoystickButton shoot = new JoystickButton(left, 1);
 		shoot.whenPressed(new Shoot());
-		
 		JoystickButton push = new JoystickButton(left, 3);
 		push.whenPressed(new PushFrisbee());
-		
 		JoystickButton retract = new JoystickButton(left, 2);
 		retract.whenPressed(new RetractFrisbee());
-		
 		JoystickButton startWheels = new JoystickButton(left, 4);
 		startWheels.whenPressed(new StartWheels());
-		
 		JoystickButton stopWheels = new JoystickButton(left, 5);
 		stopWheels.whenPressed(new StopWheels());
-		
-
 	}
 	
 }
