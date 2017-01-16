@@ -1,7 +1,7 @@
 package com.frcteam1939.killerrabbit.robot.subsystems;
 
 import com.frcteam1939.killerrabbit.robot.RobotMap;
-import com.frcteam1939.killerrabbit.robot.commands.DriveByJoystick;
+import com.frcteam1939.killerrabbit.robot.commands.drivetrain.DriveByJoystick;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
