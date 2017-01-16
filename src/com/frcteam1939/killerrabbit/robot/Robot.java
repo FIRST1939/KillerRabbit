@@ -1,19 +1,12 @@
 
 package com.frcteam1939.killerrabbit.robot;
 
-import com.frcteam1939.killerrabbit.robot.subsystem.Drivetrain;
+import com.frcteam1939.killerrabbit.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class Robot extends IterativeRobot {
 	
 	public static final Drivetrain drivetrain = new Drivetrain();
