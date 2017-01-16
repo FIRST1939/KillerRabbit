@@ -1,6 +1,8 @@
 package com.frcteam1939.killerrabbit.robot.subsystems;
 
+
 import com.frcteam1939.killerrabbit.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,12 +23,12 @@ public class Ears extends Subsystem {
     
     public void putUp(){
     	left.set(Value.kForward);
-    	right.set(Value.kForward);
+    	right.set(Value.kReverse);
     }
     
     public void putDown(){
     	left.set(Value.kReverse);
-    	right.set(Value.kReverse);
+    	right.set(Value.kForward);
     }
     
 }

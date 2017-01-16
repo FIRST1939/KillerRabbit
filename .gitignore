@@ -9,3 +9,5 @@ bin/
 # ignore Sublime Text config files
 *.sublime-project
 *.sublime-workspace
+*.jar
+sysProps.xml
