@@ -1,4 +1,4 @@
-package com.frcteam1939.killerrabbit.robot.commands;
+package com.frcteam1939.killerrabbit.robot.commands.drivetrain;
 
 import com.frcteam1939.killerrabbit.robot.Robot;
 
