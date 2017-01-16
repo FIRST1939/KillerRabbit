@@ -1,6 +1,8 @@
 
 package com.frcteam1939.killerrabbit.robot;
 
+import com.frcteam1939.killerrabbit.robot.subsystems.Ears;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -14,6 +16,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 
+	public static final Ears ears = new Ears();
 	public static OI oi;
 
 	/**
