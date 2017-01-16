@@ -12,10 +12,11 @@ public class DriveByJoystick extends Command {
     }
 
     protected void initialize() {
+    	
     }
 
     protected void execute() {
-    	Robot.drivetrain.drive(Robot.oi.left.getX(), Robot.oi.right.getY(), Robot.oi.right.getX());
+    	Robot.drivetrain.drive(Robot.oi.left.getX(), Robot.oi.left.getY(), Robot.oi.right.getX());
     }
 
     protected boolean isFinished() {

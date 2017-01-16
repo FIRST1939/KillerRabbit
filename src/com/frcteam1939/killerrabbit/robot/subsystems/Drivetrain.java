@@ -4,6 +4,7 @@ import com.frcteam1939.killerrabbit.robot.RobotMap;
 import com.frcteam1939.killerrabbit.robot.commands.DriveByJoystick;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -19,6 +20,11 @@ public class Drivetrain extends Subsystem {
 	
 	private RobotDrive drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
 
+	public Drivetrain() {
+		drive.setInvertedMotor(MotorType.kFrontRight, true);
+		drive.setInvertedMotor(MotorType.kRearRight, true);
+	}
+	
     public void initDefaultCommand() {
     	setDefaultCommand(new DriveByJoystick());
     }
