@@ -1,6 +1,8 @@
 
 package com.frcteam1939.killerrabbit.robot;
 
+import com.frcteam1939.killerrabbit.robot.subsystem.Drivetrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -13,7 +15,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	
+	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi;
 
 	/**
