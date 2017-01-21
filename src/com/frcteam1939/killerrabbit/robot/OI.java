@@ -7,6 +7,8 @@ import com.frcteam1939.killerrabbit.robot.commands.shooter.RetractFrisbee;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.Shoot;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.StartWheels;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.StopWheels;
+import com.frcteam1939.killerrabbit.robot.ringlight.commands.TurnOff;
+import com.frcteam1939.killerrabbit.robot.ringlight.commands.TurnOn;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -32,6 +34,11 @@ public class OI {
 		startWheels.whenPressed(new StartWheels());
 		JoystickButton stopWheels = new JoystickButton(left, 5);
 		stopWheels.whenPressed(new StopWheels());
+		
+		JoystickButton turnOn = new JoystickButton(left, 6);
+		turnOn.whenPressed(new TurnOn());
+		JoystickButton turnOff = new JoystickButton(left, 7);
+		turnOff.whenPressed(new TurnOff());
 	}
 	
 }

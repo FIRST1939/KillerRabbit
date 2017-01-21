@@ -17,5 +17,8 @@ public class RobotMap {
 	public static final int rightEarB = 1;
 	public static final int shooterA = 6;
 	public static final int shooterB = 7;
+	
+	//Relays
+	public static final int ringLight = 3;
 
 }
