@@ -19,6 +19,7 @@ public class OI {
 	public final Joystick right = new Joystick(1);
 	
 	{
+		
 		JoystickButton up = new JoystickButton(left, 11);
 		up.whenPressed(new EarsUp());
 		JoystickButton down = new JoystickButton(left, 10);

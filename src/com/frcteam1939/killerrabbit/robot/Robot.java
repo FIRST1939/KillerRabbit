@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Shooter shooter= new Shooter();
 	public static OI oi;
-	public GRIPipe pipe = new GRIPipe();
+	public Pipe pipe = new Pipe();
 	
 	@Override
 	public void robotInit() {
@@ -39,14 +39,20 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		new Thread(() -> {
             UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-            camera.setResolution(640, 480);
+            System.out.println("GOT CAMERA");
+            camera.setResolution(320, 240);
+            camera.setBrightness(10);
             CvSink cvSink = CameraServer.getInstance().getVideo();
-            CvSource outputStream = CameraServer.getInstance().putVideo("Processed", 640, 480);
+            CvSource outputStream = CameraServer.getInstance().putVideo("Processed", 320, 240);
             Mat source = new Mat();
             while(!Thread.interrupted()) {
-                cvSink.grabFrame(source);
-                pipe.process(source);
-                outputStream.putFrame(pipe.hsvThresholdOutput());
+               
+                if (!source.empty()){
+                	 cvSink.grabFrame(source);
+	                pipe.process(source);
+	                System.out.println("Processed Image");
+	                outputStream.putFrame(pipe.hsvThresholdOutput());
+            	}
             }
         }).start();
 	    
