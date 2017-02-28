@@ -4,9 +4,6 @@ import com.frcteam1939.killerrabbit.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class EarsDown extends Command {
 
     public EarsDown() {

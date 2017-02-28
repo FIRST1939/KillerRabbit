@@ -1,27 +1,22 @@
 
 package com.frcteam1939.killerrabbit.robot;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
+import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-
 import com.frcteam1939.killerrabbit.robot.subsystems.Drivetrain;
 import com.frcteam1939.killerrabbit.robot.subsystems.Ears;
 import com.frcteam1939.killerrabbit.robot.subsystems.RingLight;
 import com.frcteam1939.killerrabbit.robot.subsystems.Shooter;
+import com.frcteam1939.steamworks2017.robot.commands.vision.SendCenter;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoMode;
-import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.vision.USBCamera;
+import edu.wpi.first.wpilibj.vision.VisionThread;
 
 
 public class Robot extends IterativeRobot {
@@ -32,33 +27,68 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter= new Shooter();
 	public static OI oi;
 	public Pipe pipe = new Pipe();
+	public final int IMG_WIDTH = 640;
+	public final int IMG_HEIGHT = 480;
+	public static double centerX = 0.0;
+	private final Object imgLock = new Object();
 	
 	@Override
 	public void robotInit() {
 		ringLight.turnOn();
 		oi = new OI();
-		new Thread(() -> {
-            UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-            System.out.println("GOT CAMERA");
-            camera.setResolution(320, 240);
-            camera.setBrightness(10);
-            CvSink cvSink = CameraServer.getInstance().getVideo();
-            CvSource outputStream = CameraServer.getInstance().putVideo("Processed", 320, 240);
-            Mat source = new Mat();
-            while(!Thread.interrupted()) {
-               
-                if (!source.empty()){
-                	 cvSink.grabFrame(source);
-	                pipe.process(source);
-	                System.out.println("Processed Image");
-	                outputStream.putFrame(pipe.hsvThresholdOutput());
-            	}
-            }
-        }).start();
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+		cam.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		cam.setBrightness(10);
+		VisionThread vision = new VisionThread(cam, pipe, pipeline -> {
+			if (pipeline.filterContoursOutput().size() == 2) {
+	            Rect r = Imgproc.boundingRect(pipe.filterContoursOutput().get(0));
+	            Rect r1 = Imgproc.boundingRect(pipe.filterContoursOutput().get(1));
+	            double center = (r.x + (r.x + (r1.x +r1.width)))/2 -612;
+	            //finding the angle
+	            double constant = 8.5 / Math.abs(r.x -(r1.x + r1.width) );
+				double angleToGoal = 0;
+					//Looking for the 2 blocks to actually start trig
+				if(pipeline.filterContoursOutput().size() == 2){
+
+					
+						// this calculates the distance from the center of goal to center of webcam 
+						double distanceFromCenterPixels= (center);
+						// Converts pixels to inches using the constant from above.
+						double distanceFromCenterInch = distanceFromCenterPixels * constant;
+						angleToGoal = Math.atan(distanceFromCenterInch / (5738/Math.abs(r.x -(r1.x + r1.width))));
+						angleToGoal = Math.toDegrees(angleToGoal);
+						// prints angle
+						System.out.println("Angle: " + angleToGoal);
+						}
+					
+	            
+	            synchronized (imgLock) {
+	                centerX = center;
+	            
+	            System.out.println("Center X: " +centerX);
+	            }
+			}
+			
+			 
+        });
+		vision.start();
+		
+		
 	    
 	}
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
+		double centerX;
+		synchronized (imgLock) {
+			centerX = this.centerX;
+		}
+		double turn = centerX - (IMG_WIDTH / 2);
+		drivetrain.arcadeDrive(-0.6, turn * 0.005);
+		
+	}
+	public void autoPeriodic() {
+		
+		
+		
 	}
 
 

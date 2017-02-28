@@ -32,5 +32,8 @@ public class Drivetrain extends Subsystem {
     public void drive(double x, double y, double z){
     	drive.mecanumDrive_Cartesian(x, y, z, 0);
     }
+    public void arcadeDrive(double moveValue, double rotateValue){
+    	drive.arcadeDrive(moveValue, rotateValue);;
+    }
 }
 

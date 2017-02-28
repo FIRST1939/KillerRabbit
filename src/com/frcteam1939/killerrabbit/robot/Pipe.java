@@ -66,7 +66,7 @@ public class Pipe implements VisionPipeline {
 		double filterContoursMinRatio = 0;
 		double filterContoursMaxRatio = 1000;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
-
+		System.out.println("Contours: " + filterContoursOutput.size());
 	}
 
 	/**
