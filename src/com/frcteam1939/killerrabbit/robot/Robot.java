@@ -7,14 +7,9 @@ import com.frcteam1939.killerrabbit.robot.subsystems.Drivetrain;
 import com.frcteam1939.killerrabbit.robot.subsystems.Ears;
 import com.frcteam1939.killerrabbit.robot.subsystems.RingLight;
 import com.frcteam1939.killerrabbit.robot.subsystems.Shooter;
-import com.frcteam1939.steamworks2017.robot.commands.vision.SendCenter;
-
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 
@@ -30,6 +25,7 @@ public class Robot extends IterativeRobot {
 	public final int IMG_WIDTH = 640;
 	public final int IMG_HEIGHT = 480;
 	public static double centerX = 0.0;
+	public static double angle;
 	private final Object imgLock = new Object();
 	
 	@Override
@@ -57,15 +53,17 @@ public class Robot extends IterativeRobot {
 						double distanceFromCenterInch = distanceFromCenterPixels * constant;
 						angleToGoal = Math.atan(distanceFromCenterInch / (5738/Math.abs(r.x -(r1.x + r1.width))));
 						angleToGoal = Math.toDegrees(angleToGoal);
+						
 						// prints angle
-						System.out.println("Angle: " + angleToGoal);
+				
 						}
 					
 	            
 	            synchronized (imgLock) {
 	                centerX = center;
-	            
-	            System.out.println("Center X: " +centerX);
+	                angle = angleToGoal;
+	                System.out.println("Center X: " +centerX);
+	                System.out.println("Angle: " + angle);
 	            }
 			}
 			
@@ -90,8 +88,6 @@ public class Robot extends IterativeRobot {
 		
 		
 	}
-
-
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
