@@ -26,7 +26,9 @@ public class Robot extends IterativeRobot {
 	public final int IMG_HEIGHT = 480;
 	public static double centerX = 0.0;
 	public static double angle;
+	public static double contours;
 	private final Object imgLock = new Object();
+	VisionThread vision;
 	
 	@Override
 	public void robotInit() {
@@ -35,11 +37,14 @@ public class Robot extends IterativeRobot {
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		cam.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		cam.setBrightness(10);
-		VisionThread vision = new VisionThread(cam, pipe, pipeline -> {
+		new VisionThread(cam, pipe, pipeline -> {
+			contours = 0;
+			angle = 0;
+			centerX =0;
 			if (pipeline.filterContoursOutput().size() == 2) {
 	            Rect r = Imgproc.boundingRect(pipe.filterContoursOutput().get(0));
 	            Rect r1 = Imgproc.boundingRect(pipe.filterContoursOutput().get(1));
-	            double center = (r.x + (r.x + (r1.x +r1.width)))/2 -612;
+	            double center = (r.x + (r.x + (r1.x +r1.width)))/2 -IMG_WIDTH/2;
 	            //finding the angle
 	            double constant = 8.5 / Math.abs(r.x -(r1.x + r1.width) );
 				double angleToGoal = 0;
@@ -62,14 +67,17 @@ public class Robot extends IterativeRobot {
 	            synchronized (imgLock) {
 	                centerX = center;
 	                angle = angleToGoal;
-	                System.out.println("Center X: " +centerX);
-	                System.out.println("Angle: " + angle);
+	                contours = pipe.filterContoursOutput().size();
+//	                System.out.println("Center X: " +centerX);
+	                
+	                System.out.println("Distance: " + 5738/Math.abs(r.x -(r1.x + r1.width)));
+	                System.out.println("contours: " + contours);
 	            }
 			}
 			
 			 
-        });
-		vision.start();
+        }).start();
+		
 		
 		
 	    
@@ -79,8 +87,9 @@ public class Robot extends IterativeRobot {
 		synchronized (imgLock) {
 			centerX = this.centerX;
 		}
-		double turn = centerX - (IMG_WIDTH / 2);
-		drivetrain.arcadeDrive(-0.6, turn * 0.005);
+		if (2 == contours){
+		drivetrain.drive(0,0 , centerX * 0.001);
+		}
 		
 	}
 	public void autoPeriodic() {
