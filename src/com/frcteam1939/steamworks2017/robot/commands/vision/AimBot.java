@@ -5,18 +5,21 @@ import com.frcteam1939.killerrabbit.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class SendCenter extends Command {
+public class AimBot extends Command {
 	@Override
-	protected void initialize() {
-		
-		SmartDashboard.putNumber("SendCenter", Robot.centerX);
-		
+	protected void initialize() {		
 	}
 
 	@Override
 	protected void execute() {
-		SmartDashboard.putNumber("Send Center	", Robot.centerX);
-		
+		while (Robot.centerX >-10 && Robot.centerX<10){
+			synchronized (Robot.imgLock) {
+				
+			}
+			if (2 == Robot.contours){
+			Robot.drivetrain.drive(0,0 , Robot.centerX * 0.001);
+			}
+		}
 	}
 	@Override
 	protected boolean isFinished() {

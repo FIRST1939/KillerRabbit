@@ -7,6 +7,8 @@ import com.frcteam1939.killerrabbit.robot.subsystems.Drivetrain;
 import com.frcteam1939.killerrabbit.robot.subsystems.Ears;
 import com.frcteam1939.killerrabbit.robot.subsystems.RingLight;
 import com.frcteam1939.killerrabbit.robot.subsystems.Shooter;
+import com.frcteam1939.steamworks2017.robot.commands.vision.Pipe;
+
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -24,11 +26,11 @@ public class Robot extends IterativeRobot {
 	public Pipe pipe = new Pipe();
 	public final int IMG_WIDTH = 640;
 	public final int IMG_HEIGHT = 480;
-	public static double centerX = 0.0;
+	public static double centerX;
 	public static double angle;
 	public static double contours;
-	private final Object imgLock = new Object();
-	VisionThread vision;
+	public static double distance;
+	public final static Object imgLock = new Object();
 	
 	@Override
 	public void robotInit() {
@@ -38,9 +40,6 @@ public class Robot extends IterativeRobot {
 		cam.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		cam.setBrightness(10);
 		new VisionThread(cam, pipe, pipeline -> {
-			contours = 0;
-			angle = 0;
-			centerX =0;
 			if (pipeline.filterContoursOutput().size() == 2) {
 	            Rect r = Imgproc.boundingRect(pipe.filterContoursOutput().get(0));
 	            Rect r1 = Imgproc.boundingRect(pipe.filterContoursOutput().get(1));
@@ -68,9 +67,9 @@ public class Robot extends IterativeRobot {
 	                centerX = center;
 	                angle = angleToGoal;
 	                contours = pipe.filterContoursOutput().size();
+	                distance = 5738/Math.abs(r.x -(r1.x + r1.width));
 //	                System.out.println("Center X: " +centerX);
-	                
-	                System.out.println("Distance: " + 5738/Math.abs(r.x -(r1.x + r1.width)));
+	                System.out.println("Distance: " + distance);
 	                System.out.println("contours: " + contours);
 	            }
 			}
@@ -83,13 +82,13 @@ public class Robot extends IterativeRobot {
 	    
 	}
 	public void teleopPeriodic() {
-		double centerX;
-		synchronized (imgLock) {
-			centerX = this.centerX;
-		}
-		if (2 == contours){
-		drivetrain.drive(0,0 , centerX * 0.001);
-		}
+//		double centerX;
+//		synchronized (imgLock) {
+//			centerX = this.centerX;
+//		}
+//		if (2 == contours){
+//		drivetrain.drive(0,0 , centerX * 0.001);
+//		}
 		
 	}
 	public void autoPeriodic() {

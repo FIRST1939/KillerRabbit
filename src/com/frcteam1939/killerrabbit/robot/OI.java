@@ -4,12 +4,11 @@ import com.frcteam1939.killerrabbit.robot.commands.ears.EarsDown;
 import com.frcteam1939.killerrabbit.robot.commands.ears.EarsUp;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.PushFrisbee;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.RetractFrisbee;
-import com.frcteam1939.killerrabbit.robot.commands.shooter.Shoot;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.StartWheels;
 import com.frcteam1939.killerrabbit.robot.commands.shooter.StopWheels;
 import com.frcteam1939.killerrabbit.robot.ringlight.commands.TurnOff;
 import com.frcteam1939.killerrabbit.robot.ringlight.commands.TurnOn;
-
+import com.frcteam1939.steamworks2017.robot.commands.vision.AimBot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -24,9 +23,8 @@ public class OI {
 		up.whenPressed(new EarsUp());
 		JoystickButton down = new JoystickButton(left, 10);
 		down.whenPressed(new EarsDown());
-
-		JoystickButton shoot = new JoystickButton(left, 1);
-		shoot.whenPressed(new Shoot());
+		JoystickButton aim = new JoystickButton(left, 1);
+		aim.whenPressed(new AimBot());
 		JoystickButton push = new JoystickButton(left, 3);
 		push.whenPressed(new PushFrisbee());
 		JoystickButton retract = new JoystickButton(left, 2);
