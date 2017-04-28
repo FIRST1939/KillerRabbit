@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 
 public class DriveByJoystick extends Command {
+	public static final double DEAD_BAND = 0.1;
 
     public DriveByJoystick() {
     	requires(Robot.drivetrain);

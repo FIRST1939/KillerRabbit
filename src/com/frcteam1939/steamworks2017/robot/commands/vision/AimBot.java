@@ -12,19 +12,22 @@ public class AimBot extends Command {
 
 	@Override
 	protected void execute() {
-		while (Robot.centerX >-10 && Robot.centerX<10){
+			System.out.println("Running Aim...");
+			double centerX;
 			synchronized (Robot.imgLock) {
-				
+				centerX = Robot.centerX;
 			}
-			if (2 == Robot.contours){
-			Robot.drivetrain.drive(0,0 , Robot.centerX * 0.001);
-			}
+			
+			Robot.drivetrain.drive(0,0 , centerX * 0.001);
+			
 		}
-	}
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-	
+	protected void end() {
+    }
+	protected void interrupted() {
+    }
 }

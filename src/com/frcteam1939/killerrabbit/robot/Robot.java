@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
 	                angle = angleToGoal;
 	                contours = pipe.filterContoursOutput().size();
 	                distance = 5738/Math.abs(r.x -(r1.x + r1.width));
-//	                System.out.println("Center X: " +centerX);
+	                System.out.println("Center X: " +centerX);
 	                System.out.println("Distance: " + distance);
 	                System.out.println("contours: " + contours);
 	            }
